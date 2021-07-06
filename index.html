@@ -1,0 +1,73 @@
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" ”" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+    <title>Nlphose Query Builder </title>
+
+
+ 
+
+</head>
+
+<body>
+
+
+
+    <div class=" container-fluid">
+        <nav class="navbar navbar-dark bg-dark">
+            <span class="navbar-dark bg-dark" ">
+      <span style=" color:white;margin-left:10px;font-size:larger">Nlphose Query Builder </span>
+            </span>
+        </nav>
+
+        <div class="row ">
+            <div class="col-md-8">
+
+                <div>
+                    <div id="blocklyDiv" style="height: 800px; width: 100%;"></div>
+                    <xml id="toolbox" style="display: none">
+
+                        <block type="twint"></block>
+                        <block type="twint2json"></block>
+                        <block type="senti"></block>
+                        <block type="entity"></block>
+                        <block type="lang"></block> 
+                        <block type="chunk"></block>                       
+                        <block type="sentixfrm"></block>
+                        <block type="xfrmr"></block>
+                        <block type="jq"></block>
+                       
+                    </xml>
+                </div>
+            </div>
+            <div class="col-md-4" style="padding-top:50px;">
+                <p>
+                    📌 Run the below command in  a shell. It should install nlphose and launch the container's command prompt:
+                <div style="color:#fff;background-color: #000;font-family: monospace; padding:4px;border-radius:4px;">
+                    docker run --rm -it code2k13/nlphose:latest
+                </div>
+            </p>
+                <p>
+                    📌 Copy paste the below command in the container's command prompt:
+                <div  style="color:#fff;background-color: #000; font-size:x-small;font-family: monospace; padding:4px;border-radius:4px; overflow:auto">
+                   <pre id="cmd">
+
+                    
+                   </pre>
+                </div></p>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/blockly"></script>
+    <script src="js/blocks.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
