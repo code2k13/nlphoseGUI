@@ -8,20 +8,31 @@ Blockly.defineBlocksWithJsonArray([
           "name": "VALUE",
         }
       ],
-      "previousStatement": null,
+      "tooltip": "searches twitter for specified text.",
       "nextStatement": null,
       "colour": 300,
     },
     {
-      "type": "twint2json",
-      "message0": "Convert twint output to JSON",
-      "previousStatement": 'twint',
+      "type": "file2json",
+      "message0": "Process text file/s %1, group %2 sentences",
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "VALUE",
+        },
+        {
+          "type": "field_input",
+          "name": "NSENTS",
+        }
+      ],
+      "tooltip": "Converts single or multipe files to JSON. The first parameter can be name of file/s , like data/abc.txt or data/*.txt. The second parameter is number of sentences to group into a single JSON record.",
       "nextStatement": null,
       "colour": 350,
     },
     {
       "type": "senti",
       "message0": "Sentiment Analysis (AFINN)",
+      "tooltip": "Performs sentiment analysis using AFINN technique.",
       "previousStatement": null,
       "nextStatement": null,
       "colour": 180,
@@ -31,6 +42,7 @@ Blockly.defineBlocksWithJsonArray([
       "message0": "NER (Spacy)",
       "previousStatement": null,
       "nextStatement": null,
+      "tooltip": "Performs Named Entity Recognition (NER) using Spacy.",
       "colour": 200,
     },
     {
@@ -38,6 +50,7 @@ Blockly.defineBlocksWithJsonArray([
         "message0": "Language Identification (FastText)",
         "previousStatement": null,
         "nextStatement": null,
+        "tooltip": "Performs language identification using FastText.",
         "colour": 225,
       },
     {
@@ -53,6 +66,7 @@ Blockly.defineBlocksWithJsonArray([
           "name": "VALUE",
         }
       ],
+      "tooltip": "Performs chuncking using NLTK.",
       "previousStatement": null,
       "nextStatement": null,
       "colour": 150,
@@ -75,12 +89,14 @@ Blockly.defineBlocksWithJsonArray([
           "name": "VALUE",
         }
       ],
+      "tooltip": "Performs Q&A or classification tasks using Transformers",
       "previousStatement": null,
       "nextStatement": null,
       "colour": 100,
     },
     {
         "type": "sentixfrm",
+        "tooltip": "Performs sentiment analysis using Transformers",
         "message0": "Sentiment Analysis (Xformer)",
         "previousStatement": null,
         "nextStatement": null,
@@ -95,6 +111,7 @@ Blockly.defineBlocksWithJsonArray([
           "name": "VALUE",
         }
       ],
+      "tooltip": "Modifies JSON using a template.",
       "previousStatement": null,
       "nextStatement": null,
       "colour": 240,

@@ -12,14 +12,16 @@
 
 
     workspace.addChangeListener((a) => {
+
+        var warningDiv = document.getElementById("warning")
+        warningDiv.style.visibility = 'hidden';
         w = a.getEventWorkspace_()
-        var argList = []
+        var params = []
 
         var blks = w.getAllBlocks()
-        blks.map(b => {
-            var params = []
+        blks.forEach(b => {
 
-            if (['senti', 'entity', 'lang', 'twint2json'].indexOf(b.type) > -1) {
+            if (['senti', 'entity', 'lang'].indexOf(b.type) > -1) {
 
                 params.push("./" + b.type + " ")
             }
@@ -37,6 +39,7 @@
             if (b.type == "twint") {
                 var value = b.getFieldValue('VALUE');
                 params.push("twint -s " + value)
+                params.push("./twint2json.py")
             }
 
             if (b.type == "jq") {
@@ -50,13 +53,41 @@
                 params.push("./chunk.py " + observation + " '" + value + "'")
             }
 
-            argList.push(params)
+            if (b.type == "file2json") {
+                warningDiv.style.visibility = 'visible';
+                var value = b.getFieldValue('VALUE');
+                var nsents = b.getFieldValue('NSENTS');
+                params.push("./files2json.py -n " + nsents + "  " + value)
+            }
+
+            //argList.push(params)
         })
 
-        document.getElementById("cmd").innerText = argList.join(" |\\ \r\n")
-        console.log(argList)
+        document.getElementById("cmd").innerText = params.join(" |\\ \r\n")
+        //console.log(argList)
     })
 
 
 
 })();
+
+function saveDiagram() {
+    var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
+    var blob = new Blob([xml.outerHTML], { type: "application/xml,;charset=utf-8" });
+    saveAs(blob, 'nlphose.dat');
+}
+
+function loadDiagram() {
+    Blockly.getMainWorkspace().clear()
+    if (document.getElementById("files").files.length < 1) {
+        return;
+    }
+    const reader = new FileReader()
+    reader.onload = event => {
+        var xml = Blockly.Xml.textToDom(event.target.result);
+        Blockly.Xml.domToWorkspace(xml, Blockly.getMainWorkspace());
+    }
+    reader.readAsText(document.getElementById("files").files[0]);
+}
+
+
