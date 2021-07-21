@@ -38,7 +38,7 @@
 
             if (b.type == "twint") {
                 var value = b.getFieldValue('VALUE');
-                params.push("twint -s " + value)
+                params.push("twint -s " + '"' + value  + '"')
                 params.push("./twint2json.py")
             }
 
@@ -63,7 +63,7 @@
             //argList.push(params)
         })
 
-        document.getElementById("cmd").innerText = params.join(" |\\ \r\n")
+        document.getElementById("cmd").innerText = params.join(" |\\\r\n")
         //console.log(argList)
     })
 
