@@ -14,7 +14,7 @@ Blockly.defineBlocksWithJsonArray([
   },
   {
     "type": "file2json",
-    "message0": "Process txt file/s %1, group %2 sents",
+    "message0": "Process txt files from data/%1, group %2 sents",
     "args0": [
       {
         "type": "field_input",
@@ -115,6 +115,32 @@ Blockly.defineBlocksWithJsonArray([
     "previousStatement": null,
     "nextStatement": null,
     "colour": 240,
+  },
+  {
+    "type": "savetofile",
+    "message0": "Save pipeline output to file %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "VALUE",
+      }
+    ],
+    "tooltip": "Saves pipeline output to file",
+    "previousStatement": null,
+    "colour": 390,
+  },
+  {
+    "type": "setreamtows",
+    "message0": "Stream to browser on port %1",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "VALUE",
+      }
+    ],
+    "tooltip": "Stream output to browser using Socket.IO",
+    "previousStatement": null,
+    "colour": 400,
   }
 
 ]);

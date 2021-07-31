@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=0.50">
-    <link rel="stylesheet" ”" type="text/css"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" data-auto-a11y="true"></script>
 
     <title>🛠️ Nlphose Pipeline Builder </title>
 
@@ -17,27 +17,53 @@
 
 <body>
 
+    <nav class="navbar is-dark">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                <h1 class="is-white is-size-4">🛠️ Nlphose Pipeline Builder</h1>
+
+            </a>
+
+        </div>
 
 
-    <div class=" container-fluid">
-        <nav class="navbar navbar-dark bg-dark">
-            <span class="navbar-dark bg-dark" ">
-      <span style=" color:white;margin-left:10px;font-size:larger">🛠️ Nlphose Pipeline Builder </span>
-            </span>
-            <div>
-                <button class="btn btn-success btn-sm" onclick="saveDiagram()">📥 Diagram</button>
-                <span style="color:gray; margin-left:40px; font-size: x-large;" class="label label-default">⬆️</span>
-                <input type="file" id="files" style="color:white" onchange="loadDiagram()"> </input>
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="field is-grouped">
+                    <p class="control">
+                        <button class="button  is-info" onclick="saveDiagram()">📥 Diagram</button>
+                    </p>
+                    <p class="control">
 
+                    <div class="file has-name is-info">
+                        <label class="file-label">
+                            <input class="file-input" type="file" name="resume" id="files"
+                                onchange="loadDiagram()"></input>
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label">
+                                    Upload file
+                                </span>
+                            </span>
+                        </label>
+                    </div>
+
+                    </p>
+                </div>
             </div>
+        </div>
+        </div>
+    </nav>
 
-        </nav>
+    <div class=".container.is-max-desktop">
 
-        <div class="row ">
-            <div class="col-md-8">
 
-                <div>
-                    <div id="blocklyDiv" style="height: 800px; width: 100%;"></div>
+        <div class="columns ">
+            <div id="blocklyDiv" style="height: 800px;" class="column is-three-quarters">
+                <div style="width:100%">
+
                     <xml id="toolbox" style="display: none">
 
                         <block type="twint"></block>
@@ -49,49 +75,55 @@
                         <block type="sentixfrm"></block>
                         <block type="xfrmr"></block>
                         <block type="jq"></block>
+                        <block type="savetofile"></block>
+                        <block type="setreamtows"></block>
 
                     </xml>
                 </div>
             </div>
-            <div class="col-md-4" style="padding-top:50px;">
 
-                <p>
+            <div class="column" style="padding-top:20px;">
+
+                <p> 
                     📌 Run the below 🐬 Docker command in a shell to install <a
                         href="https://github.com/code2k13/nlphose">nlphose</a> and launch the container's command
                     prompt:
-                <div style="color:#fff;background-color: #000;font-family: monospace; padding:4px;border-radius:4px;">
+                <div   id="dockercmd"
+                    style="color:#fff;background-color: #000;font-family: monospace; padding:4px;border-radius:4px;">
                     docker run --rm -it code2k13/nlphose:latest
                 </div>
                 </p>
-                <p>
+                <p style="padding-top: 50px">
                     📌 Copy paste the below command in the container's command prompt:
                 <div
-                    style="color:#fff;background-color: #000; font-size:x-small;font-family: monospace; padding:4px;border-radius:4px; overflow:auto">
-                    <pre id="cmd">
+                    style="color:#fff;background-color: #000; font-size:small;font-family: monospace; padding:4px;border-radius:4px; overflow:auto">
+                    <div id="cmd" style="min-height: 30px;">
 
 
-                   </pre>
+                    </div>
                 </div>
                 </p>
 
                 <p>
                 <div id="warning" style="visibility:hidden;margin-top:40px;font-size:small">
-                    ⚠️ When working with files you should ideally mount the directory containing these files
-                    as a volume on the container.
-                    Example:
-                    <div
-                        style="color:#fff;background-color: #000;font-family: monospace; padding:4px;border-radius:4px;">
-                        docker run -v /home/data:/usr/src/app/nlphose/scripts/data --rm -it code2k13/nlphose:latest
-                    </div>
-
-                    Also make sure you specify the relative location of files to the process files block, like
-                    "data/*.txt"
-
+                    ⚠️ Please note that your <span style="text-decoration: underline;">current working directory</span>
+                    will be mounted as
+                    <span style="text-decoration: underline;">/usr/src/app/nlphose/scripts/data</span> inside the
+                    container.
                 </div>
+
+                <div id="port" style="visibility:hidden;margin-top:40px;font-size:small">
+                    ⚠️ Please note that the port <span
+                        style="background-color: rgb(180, 166, 241);padding-left:5px;padding-right:5px"
+                        id="portval">3000</span> will be mapped to port 3000 of the container.
+                </div>
+
                 </p>
             </div>
 
         </div>
+
+
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>

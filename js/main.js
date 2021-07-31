@@ -3,6 +3,7 @@
 
 
 
+
     Blockly.inject('blocklyDiv', {
         toolbox: document.getElementById('toolbox'),
         scrollbars: false,
@@ -13,9 +14,12 @@
 
     workspace.addChangeListener((a) => {
 
+
         var warningDiv = document.getElementById("warning")
         warningDiv.style.visibility = 'hidden';
         w = a.getEventWorkspace_()
+
+        document.getElementById("port").style.visibility = 'hidden';
         var params = []
 
         var blks = w.getAllBlocks()
@@ -23,7 +27,7 @@
 
             if (['senti', 'entity', 'lang'].indexOf(b.type) > -1) {
 
-                params.push("./" + b.type + " ")
+                params.push("./" + b.type + ".py ")
             }
 
             if (b.type == "xfrmr") {
@@ -38,7 +42,7 @@
 
             if (b.type == "twint") {
                 var value = b.getFieldValue('VALUE');
-                params.push("twint -s " + '"' + value  + '"')
+                params.push("twint -s " + '"' + value + '"')
                 params.push("./twint2json.py")
             }
 
@@ -57,10 +61,36 @@
                 warningDiv.style.visibility = 'visible';
                 var value = b.getFieldValue('VALUE');
                 var nsents = b.getFieldValue('NSENTS');
-                params.push("./files2json.py -n " + nsents + "  " + value)
+                params.push("files2json.py -n " + nsents + "  " + "data/" + value);
+
             }
 
-            //argList.push(params)
+            if (b.type == "savetofile") {
+                warningDiv.style.visibility = 'visible';
+                var value = b.getFieldValue('VALUE');
+                params.push("> data/" + value);
+
+            }
+
+
+            if (b.type == "setreamtows") {
+                document.getElementById("port").style.visibility = 'visible';
+                var value = b.getFieldValue('VALUE');
+                document.getElementById("portval").innerText = value
+                params.push("./ws.js");
+
+            }
+
+            var dockercmd = "docker run --rm -it " //-v ${PWD}:/usr/src/app/nlphose/scripts/data
+            if (warningDiv.style.visibility == 'visible') {
+                dockercmd = dockercmd + "/-v ${PWD}:/usr/src/app/nlphose/scripts/data"
+            }
+
+            if(document.getElementById("port").style.visibility == 'visible'){
+                dockercmd = dockercmd + " -p " + document.getElementById("portval").innerText + ":3000"
+            }
+            dockercmd = dockercmd + " code2k13/nlphose:latest"
+            document.getElementById("dockercmd").innerText = dockercmd;
         })
 
         document.getElementById("cmd").innerText = params.join(" |\\\r\n")
