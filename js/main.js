@@ -48,7 +48,7 @@
 
             if (b.type == "jq") {
                 var value = b.getFieldValue('VALUE');
-                params.push("jq '" + value + "'")
+                params.push("jq -c '" + value + "'")
             }
 
             if (b.type == "chunk") {
