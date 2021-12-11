@@ -141,6 +141,50 @@ Blockly.defineBlocksWithJsonArray([
     "tooltip": "Stream output to browser using Socket.IO",
     "previousStatement": null,
     "colour": 400,
+  },
+  {
+    "type": "kafka2json",
+    "message0": "Listen to Kafka topic: %1, uri: %2 , groupId: %3",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "topic",
+        "text":"nlphose"
+      },
+      {
+        "type": "field_input",
+        "name": "uri",
+        "text":"localhost:9092"
+      },
+      {
+        "type": "field_input",
+        "name": "grpId",
+        "text": "grp1"
+      }
+    ],
+    "tooltip": "Subscribe to a kafka stream.",
+    
+    "nextStatement": null,
+    "colour": 125,
+  },
+  {
+    "type": "sinktokafka",
+    "message0": "Write to Kafka topic: %1, uri: %2",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "topic",
+        "text":"nlpoutput"
+      },
+      {
+        "type": "field_input",
+        "name": "uri",
+        "text":"localhost:9092"
+      }
+    ],
+    "tooltip": "Subscribe to a kafka stream.",
+    "previousStatement": null,
+    "colour": 330,
   }
 
 ]);

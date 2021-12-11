@@ -81,12 +81,29 @@
 
             }
 
+            if (b.type == "kafka2json") {
+                //./kafka2json.py -topic mytopic -endpoint 10.232.3.2.3:1234 -groupId mygroup
+                var topic = b.getFieldValue('topic');
+                var uri = b.getFieldValue('uri');
+                var grp = b.getFieldValue('grpId');
+                params.push("./kafka2json.py -topic " + topic + "  " + " -endpoint " + uri + " -groupId " + grp);
+            }
+
+
+            if (b.type == "sinktokafka") {
+                //./kafka2json.py -topic mytopic -endpoint 10.232.3.2.3:1234 -groupId mygroup
+                var topic = b.getFieldValue('topic');
+                var uri = b.getFieldValue('uri');
+               
+                params.push("./kafkasink.py -topic " + topic + "  " + " -endpoint " + uri);
+            }
+
             var dockercmd = "docker run --rm -it " //-v ${PWD}:/usr/src/app/nlphose/scripts/data
             if (warningDiv.style.visibility == 'visible') {
                 dockercmd = dockercmd + "/-v ${PWD}:/usr/src/app/nlphose/scripts/data"
             }
 
-            if(document.getElementById("port").style.visibility == 'visible'){
+            if (document.getElementById("port").style.visibility == 'visible') {
                 dockercmd = dockercmd + " -p " + document.getElementById("portval").innerText + ":3000"
             }
             dockercmd = dockercmd + " code2k13/nlphose:latest"
