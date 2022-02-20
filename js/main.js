@@ -61,7 +61,7 @@
                 warningDiv.style.visibility = 'visible';
                 var value = b.getFieldValue('VALUE');
                 var nsents = b.getFieldValue('NSENTS');
-                params.push("files2json.py -n " + nsents + "  " + "data/" + value);
+                params.push("./file2json.py -n " + nsents + "  " + "data/" + value);
 
             }
 
@@ -98,9 +98,9 @@
                 params.push("./kafkasink.py -topic " + topic + "  " + " -endpoint " + uri);
             }
 
-            var dockercmd = "docker run --rm -it " //-v ${PWD}:/usr/src/app/nlphose/scripts/data
+            var dockercmd = "docker run --rm -it "
             if (warningDiv.style.visibility == 'visible') {
-                dockercmd = dockercmd + "/-v ${PWD}:/usr/src/app/nlphose/scripts/data"
+                dockercmd = dockercmd + "-v ${PWD}:/usr/src/app/nlphose/scripts/data"
             }
 
             if (document.getElementById("port").style.visibility == 'visible') {
